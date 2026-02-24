@@ -9,7 +9,7 @@ const CONFIG = {
     ENDPOINTS: {
         TILES: '/tiles',
         WORLDS: '/worlds',
-        WEBSOCKET: `ws://${location.host}/ws/players`
+        WEBSOCKET: `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/ws/players`
     }
 };
 
