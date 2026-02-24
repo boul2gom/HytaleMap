@@ -88,26 +88,13 @@ public record ChunkAccessor(/** The Hytale world instance */ World world) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 final ChunkStore chunk_store = world.getChunkStore();
-                final Store<ChunkStore> store = chunk_store.getStore();
 
                 // This relies on the world using IndexedStorage
-                if (chunk_store.getLoader() instanceof IndexedStorageChunkLoader) {
-                    final var cache = store.getResource(IndexedStorageCache.getResourceType());
-
-                    int regionX = chunkX >> 5;
-                    int regionZ = chunkZ >> 5;
-
-                    // Checks if the region file exists
-                    final IndexedStorageFile region_file = cache.getOrTryOpen(regionX, regionZ, false);
-                    if (region_file != null) {
-                        int localX = chunkX & 0x1F;
-                        int localZ = chunkZ & 0x1F;
-                        int index = ChunkUtil.indexColumn(localX, localZ);
-
-                        // Check if the chunk index exists in the region file keys
-                        if (region_file.keys().contains(index)) {
-                            return false; // It exists!
-                        }
+                if (chunk_store.getLoader() instanceof IndexedStorageChunkLoader loader) {
+                    // Checks if the chunk index is cached
+                    long index = ChunkUtil.indexChunk(chunkX, chunkZ);
+                    if (loader.getIndexes().contains(index)) {
+                        return false; // It exists!
                     }
                 }
             } catch (Exception e) {
