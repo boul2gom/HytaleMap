@@ -1,7 +1,7 @@
 {
     "Group": "boul2gom",
     "Name": "VoxelAtlas",
-    "Version": "1.2.2",
+    "Version": "1.2.3",
     "Description": "A dynamic map plugin for Hytale servers",
     "Authors": [
         {
