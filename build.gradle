@@ -70,7 +70,7 @@ configurations {
 
 dependencies {
     implementation("com.hypixel.hytale:Server:2026.02.19-1a311a592")
-    implementation 'io.netty:netty-all:4.2.10.Final'
+    implementation 'io.netty:netty-all:4.2.11.Final'
 
     shadow 'org.mapdb:mapdb:3.1.0'
     shadow 'org.sejda.imageio:webp-imageio:0.1.6'
